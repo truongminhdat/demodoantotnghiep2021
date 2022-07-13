@@ -27,7 +27,9 @@ return new class extends Migration
             $table->string('Anhbia');
             $table->string('level')->nullable();
             $table->boolean('status')->default(0);
+            $table->integer('role_id')->unsigned();
             $table->rememberToken();
+            $table->foreign('role_id')->references('id')->on('roles');
             $table->timestamps();
 
         });

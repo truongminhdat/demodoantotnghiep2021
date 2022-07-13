@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
     <base href="{{ asset('') }}">
     <meta charset="utf-8">
@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
     <link rel="stylesheet" href="website/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="website/css/footer.css">
+    <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
 
     <link rel="stylesheet" href="website/css/owl.carousel.min.css">
 
@@ -40,37 +42,39 @@
     <script src="website/js/bootstrap.min.js"></script>
     <script src="website/js/jquery.sticky.js"></script>
     <script src="website/js/main.js"></script>
+    <script src="website/js/simple.money.format.js"></script>
 {{--    <script src="public/website/js/jquery-3.2.1.js"></script>--}}
 {{--    <script src="public/website/js/jquery-3.2.1.min.js"></script>--}}
-   {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>--}}
-{{--    <script>--}}
-{{--            $(function () {--}}
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
+    <script>
+            $(function () {
 
-{{--            $("#rateYo").rateYo({--}}
-{{--                rating: 0,--}}
-{{--                normalFill:'#A0A0A0',--}}
-{{--                ratedFill:'#ffff00',--}}
+            $("#rateYo").rateYo({
+                rating: 0,
+                normalFill:'#A0A0A0',
+                ratedFill:'#ffff00',
 
-{{--            }).on("rateyo.set",function (e,data){--}}
-{{--                $('#rating-start').val(data.rating)--}}
-{{--                $('#formRating').submit();--}}
-{{--                alert("Cảm ơn bạn đã đánh giá "+data.rating+ "sao");--}}
-{{--            });--}}
-{{--            $("#rateYo1").rateYo({--}}
-{{--            rating:0,--}}
-{{--            normalFill:'#A0A0A0',--}}
-{{--            ratedFill:'#ffff00',--}}
+            }).on("rateyo.set",function (e,data){
+                $('#rating-start').val(data.rating)
+                $('#formRating').submit();
+                alert("Cảm ơn bạn đã đánh giá "+data.rating+ "sao");
+            });
+            $("#rateYo1").rateYo({
+            rating:0,
+            normalFill:'#A0A0A0',
+            ratedFill:'#ffff00',
 
-{{--        }).on("rateyo.set",function (e,data){--}}
-{{--            alert("Bạn chưa đăng nhập,vui lòng đăng nhập để đánh giá")--}}
-{{--        });--}}
-
-
+        }).on("rateyo.set",function (e,data){
+            alert("Bạn chưa đăng nhập,vui lòng đăng nhập để đánh giá")
+        });
 
 
-{{--        });--}}
 
-{{--    </script>--}}
+
+        });
+
+    </script>
     @yield('js')
        <style type="text/css">
         #map {

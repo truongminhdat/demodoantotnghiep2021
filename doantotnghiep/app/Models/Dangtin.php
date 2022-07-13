@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Dangtin extends Model
 {
     use HasFactory;
-    protected $table= "dangtins";
-    protected $fillable=[
+
+    protected $table = "dangtins";
+    protected $fillable = [
         'Tieude',
         'Diachi',
         'Giaphong',
@@ -25,23 +26,43 @@ class Dangtin extends Model
         'user_id',
         'status'
     ];
+
     public function phuong()
     {
         return $this->belongsTo(Phuong::class);
     }
-    public function loaiphong(){
+
+    public function loaiphong()
+    {
         return $this->belongsTo(Loaiphong::class);
     }
-    public function user(){
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
-    public function comment(){
+
+    public function comment()
+    {
         return $this->hasMany(Comment::class);
     }
-    public function like(){
-        return $this->hasMany(Like::class,'dangtin_id')->sum('like');
+
+    public function like()
+    {
+        return $this->hasMany(Like::class);
     }
-    public function danhgia(){
+
+    public function danhgia()
+    {
         return $this->hasMany(Danhgia::class);
     }
+
+    public function quan()
+    {
+        return $this->belongsTo(Quan::class);
+    }
+      public function datphong(){
+        return $this->belongsTo(Datphong::class);
+      }
+
 }

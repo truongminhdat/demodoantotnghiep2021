@@ -8,8 +8,21 @@
                 </div>
             </div>
         </div>
+        <div>
 
-        @if ($errors->any())
+            <form action="" class="form-inline">
+                <div class="form-group">
+                    <input class="form-control" name="key" placeholder="Tìm kiếm.."/>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </form>
+        </div>
+
+
+    @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
                     @foreach ($errors->all() as $error)
@@ -31,11 +44,12 @@
 
         @endif
 
-
         <table class="table table-bordered">
             <tr>
                 <th>Duyệt</th>
+                <th>Hoạt động</th>
                 <th>Tên tài khoản</th>
+                <th>Email</th>
                 <th>Địa chỉ</th>
                 <th>Số điện thoại</th>
                 <th>Giới tính</th>
@@ -43,6 +57,7 @@
                 <th>Ảnh bìa</th>
             </tr>
             @foreach ($user as $data)
+                @if($data->role_id == 2)
                 <tr>
                     <td>
                         @if($data->status == 1 )
@@ -51,7 +66,12 @@
                             <input type="button" data-status="1" id="{{$data->id}}" class="btn btn-primary duyet_btn" value="Khóa tài khoản">
                         @endif
                     </td>
+                    <td>
+                        <a href="{{route('admin.user.edit',$data->id)}}" class="btn btn-xs btn-primary">Trao quyền</a>
+                        <a href="{{route('admin.user.destroy',$data->id)}}" class="btn btn-xs btn-danger">Xóa</a>
+                    </td>
                     <td>{{$data->name}}</td>
+                    <td>{{$data->email}}</td>
                     <td>{{$data->diachi}}</td>
                     <td>{{$data->sdt}}</td>
                     <td>{{$data->gioitinh}}</td>
@@ -59,13 +79,15 @@
                     <td><img  src="/upload/user/{{ $data->Anhbia}}" width="120" alt=""></td>
 
                 </tr>
+                @else
+                @endif
             @endforeach
         </table>
 
         <nav aria-label="Page navigation ">
             <nav aria-label="Page navigation example">
-                {!! $user->links()!!}
                 </li>
+                {{ $user->appends(request()->only('key'))->links()}}
                 </ul>
 
             </nav></nav>

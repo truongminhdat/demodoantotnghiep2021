@@ -56,7 +56,6 @@
                     <a href="{{route('admin.quan.destroy',$data->id)}}" class="btn btn-danger action_delete">
                         <i class="fas fa-trash"></i>
                     </a>
-                    </form>
                 </td>
 
             </tr>

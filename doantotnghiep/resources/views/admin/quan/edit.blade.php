@@ -15,7 +15,7 @@
     <div class="container">
 
         <div class="card-body">
-            <form action="{{route('update',$quan->id)}}" method="post">
+            <form action="{{route('admin.quan.update',$quan->id)}}" method="post">
                 @csrf
                 <div class="row">
                     <div class="col-md-6">

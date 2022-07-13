@@ -39,19 +39,17 @@
         @endif
         <table class="table table-bordered">
             <tr>
-                <th>ID</th>
                 <th>Ảnh slide</th>
                 <th width="280px">Hành động</th>
             </tr>
             @foreach ($slide as $data)
-                <td>{{ $data->id }}</td>
                 <td><img src="/upload/slide/{{$data->Hinh}}" width="200px"></td>
                 <td>
-                        <a class="btn btn-primary" href="#">
+                        <a class="btn btn-sm" href="{{route('admin.slide.edit',$data->id)}}">
                             <i class="fas fa-edit"></i>
                         </a>
                         @csrf
-                        <a href="#" class="btn btn-danger action_delete">
+                        <a href="#" class="btn btn-sm">
                             <i class="fas fa-trash"></i>
                         </a>
                         </form>

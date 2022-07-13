@@ -30,5 +30,9 @@ class CommentController extends Controller
 
 
     }
-
+    public function xoabinhluan($id){
+        $comment = Comment::find($id);
+        $comment->delete();
+        return redirect("trangchitiet/$id/")->with('thongbao','Viết bình luận thành công');
+    }
 }

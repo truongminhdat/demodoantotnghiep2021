@@ -36,7 +36,7 @@
                                         <label for="customCheck1" class="custom-control-label">Remember password</label>
                                     </div>
                                     <div class="form-group">
-                                        <p>Bạn quên mật khẩu ?, <a href="#">Click lấy lại mật khẩu</a></p>
+                                        <p>Bạn quên mật khẩu ?, <a href='{{route('forgotpassword')}}'>Click lấy lại mật khẩu</a></p>
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Sign in</button>
                                 </form>

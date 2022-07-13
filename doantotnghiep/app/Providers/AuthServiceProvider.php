@@ -24,7 +24,15 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
         $this->registerPolicies();
+        app(Gate::class)->before(function (Authorizable $auth,$route){
+            if (method_exists($auth,'hasPermission')){
+                return $auth->hasPermission($route) ? $auth->hasPermission($route):false;
+            }
+            return false;
+        });
+
 
         //
     }

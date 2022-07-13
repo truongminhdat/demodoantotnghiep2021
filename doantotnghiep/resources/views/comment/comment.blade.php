@@ -16,7 +16,7 @@
             <form action={{route('comment',$dangtin->id)}} method="post" role="form">
 
                 @csrf
-                <div class="mt-3 d-flex flex-row align-items-center p-3 form-color">
+                <div class="d-flex flex-row align-items-center p-3 form-color">
                     <img src="upload/user/{{$user->Anhdaidien}}" width="50" class="rounded-circle mr-2">
                     <input type="text" class="form-control" id="comment-content" name="noidung" placeholder="Enter your comment...">
                     <input type="hidden" class="form-control" name="dangtin_id"  value="{{$dangtin->id}}">
@@ -38,16 +38,19 @@
                                     <span class="mr-2"></span>
                                     <small class="c-badge" style="width:180px;font-size: 18px">{{$data->user->name}}</small>
                                 </div>
-                                <small>{{$data->created_at}}</small>
+                                <small>{{date('d/m/Y H:i', strtotime($data->created_at))}}</small>
                             </div>
 
                             <p class="text-justify comment-text mb-0" style="color: #0a0e14;font-size: 16px">{{$data->noidung}}</p>
 
                             <div class="d-flex flex-row user-feed">
 
-                                <span class="wish"><i class="fa fa-heartbeat mr-2"></i>{{$data->dangtin->Tieude}}</span>
+                                <span class="wish"><i class="fas fa-home"></i>{{$data->dangtin->Tieude}}</span>
                                 @if(\Illuminate\Support\Facades\Auth::user())
-                                    <span class="ml-3"><i class="fa fa-comments-o mr-2" id="btn-reply" data-id="{{$data->id}}"></i>Reply</span>
+                                    @if($data->user_id == \Illuminate\Support\Facades\Auth::user()->id)
+                                    @else
+                                        <span class="ml-3"><a href="{{route('xoabinhluan',$data->id)}}">Xóa</a></span>
+                                    @endif
                                 @endif
 
 

@@ -6,6 +6,16 @@
     <div class="content">
         <div class="main-content child-page">
             <div class="container">
+                @if (session('error'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('error') }}
+                    </div>
+                @endif
+                    @if (session('success'))
+                        <div class="alert alert-primary" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                 <div class="title-single-reals">
                     <div class="title-reals">
                         <div class="row">
@@ -14,25 +24,16 @@
                             </div>
                         </div>
                         <div class="address">
-                            <span><i class="fa fa-home"></i> K52/2 Phan Thanh - Thanh Khê – Đà Nẵng</span>
+                            <span><i class="fas fa-home"></i>{{$dangtin->Diachi}}</span>
                         </div>
                         <div class="price">
-                            <p><span>Ngày đăng: </span>07-04-2022</p>
-                            <span class="like">
-                                <div title="Likes" id="saveLikeDislike" data-type="like" data-post="{{$dangtin->id}}" class="mr-2 btn btn-sm btn-outline-primary d-inline font-weight-bold">
-                                    Like
-                                    <span class="like-count">{{$dangtin->like()}}</span>
-                                </div>
-                            </span>
+                            <p class="datepicker-days"><span style="color: #0c84ff">Ngày đăng: </span>{{date('d/m/Y H:i', strtotime($dangtin->created_at))}}</p>
+                            @if(\Illuminate\Support\Facades\Auth::user())
+                            <a href="/like/{{$dangtin->id}}"><i class="fas fa-heart"></i>{{$likes}}</a>
                             <div class="price">
                                 <h5>Hình ảnh phòng trọ</h5>
                             </div>
-{{--                            <span class="like">--}}
-{{--								<div class="fb-like fb_iframe_widget"  data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true" fb-xfbml-state="rendered" fb-iframe-plugin-query="action=like&amp;app_id=2197056520536374&amp;container_width=175&amp;href=https%3A%2F%2Fphongtrodn.com%2Fcho-thue-nha-tai-k52-2-phan-thanh-da-nang-2.html&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;share=true&amp;show_faces=true&amp;size=small"><span style="vertical-align: bottom; width: 150px; height: 28px;"><iframe name="f37df3972fa7638" width="1000px" height="1000px" data-testid="fb:like Facebook Social Plugin" title="fb:like Facebook Social Plugin" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" src="https://www.facebook.com/v3.2/plugins/like.php?action=like&amp;app_id=2197056520536374&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Df2493d9fa0672dc%26domain%3Dphongtrodn.com%26is_canvas%3Dfalse%26origin%3Dhttps%253A%252F%252Fphongtrodn.com%252Ff2e53eec1b80ebc%26relation%3Dparent.parent&amp;container_width=175&amp;href=https%3A%2F%2Fphongtrodn.com%2Fcho-thue-nha-tai-k52-2-phan-thanh-da-nang-2.html&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;share=true&amp;show_faces=true&amp;size=small" style="border: none; visibility: visible; width: 150px; height: 28px;" class=""></iframe></span></div>--}}
-
-{{--							  	<div id="___plusone_0" style="position: absolute; width: 450px; left: -10000px;">--}}
-{{--                                    <iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position:absolute;top:-10000px;width:450px;margin:0px;border-style:none" tabindex="0" vspace="0" width="100%" id="I0_1653446260233" name="I0_1653446260233" src="https://apis.google.com/u/0/se/0/_/+1/fastbutton?usegapi=1&amp;size=medium&amp;origin=https%3A%2F%2Fphongtrodn.com&amp;url=https%3A%2F%2Fphongtrodn.com%2Fcho-thue-nha-tai-k52-2-phan-thanh-da-nang-2.html&amp;gsrc=3p&amp;ic=1&amp;jsh=m%3B%2F_%2Fscs%2Fabc-static%2F_%2Fjs%2Fk%3Dgapi.lb.vi.bY_eJs-hr0w.O%2Fd%3D1%2Frs%3DAHpOoo9cew23wIivrOG-x2INLWSlG1nunw%2Fm%3D__features__#_methods=onPlusOne%2C_ready%2C_close%2C_open%2C_resizeMe%2C_renderstart%2Concircled%2Cdrefresh%2Cerefresh&amp;id=I0_1653446260233&amp;_gfid=I0_1653446260233&amp;parent=https%3A%2F%2Fphongtrodn.com&amp;pfname=&amp;rpctoken=18610155" data-gapiattached="true"></iframe></div><g:plusone size="medium" data-gapiscan="true" data-onload="true" data-gapistub="true"></g:plusone>--}}
-{{--							</span>--}}
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -40,56 +41,58 @@
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
                         <div class="content single-khach-san">
                             <div class="slider-tour">
-                                <div class="lSSlideOuter noPager"><div class="lSSlideWrapper usingCss"><ul class="imageGallery lightSlider lSSlide" style="width: 690px; transform: translate3d(0px, 0px, 0px); height: 505px; padding-bottom: 0%;">
-                                            <li data-thumb="https://phongtrodn.com/wp-content/uploads/2022/04/e27415f57705825bdb14-rotated.jpg" data-src="{{$dangtin->Hinhanh}}" class="lslide active" style="width: 690px; margin-right: 0px;">
-                                                <img src="upload/dangtin/{{$dangtin->Hinhanh}}" alt="{{$dangtin->Tieude}}" style="height: 505px;">
+                                <div class="lSSlideOuter noPager"><div class="lSSlideWrapper usingCss"><ul class="imageGallery lightSlider lSSlide" style="width: 300px; transform: translate3d(0px, 0px, 0px); height: 505px; padding-bottom: 0%;">
+                                            <li data-src="{{$dangtin->Hinhanh}}" class="lslide active" style="width: 300px; margin-right: 0px;">
+                                                <img src="upload/dangtin/{{$dangtin->Hinhanh}}" alt="{{$dangtin->Tieude}}" style="height: 505px;width: 300px">
                                             </li>
-                                        </ul><div class="lSAction" style="display: none;"><a class="lSPrev"></a><a class="lSNext"></a></div></div><ul class="lSPager lSGallery" style="margin-top: 5px; transition-duration: 400ms; width: 116.333px; transform: translate3d(0px, 0px, 0px);"></ul></div>
+                                        </ul><div class="lSAction" style="display: none;"><a class="lSPrev"></a><a class="lSNext"></a></div></div><ul class="lSPager lSGallery" style="margin-top: 5px; transition-duration: 400ms; width: 100px; transform: translate3d(0px, 0px, 0px);"></ul></div>
                             </div>
-                            <div class="custom-phone">
-                                <div class="button" data-phone="{{$dangtin->sdt}}">Nhấp vào đây để lấy số</div>
-                            </div>
-                            <div class="utility">
-                                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1228209458646183" data-ad-slot="1153677726" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                                <script>
-                                    (adsbygoogle = window.adsbygoogle || []).push({});
-                                </script>
-                            </div>
+                           @if(auth()->user())
+                                @if($dangtin->user_id == auth()->user()->id )
+
+                            @else
+
+                                <div class="wrap-btn-book-room">
+                                    <a href="{{ route('bookRoom', ['p' => $dangtin->id]) }}" class="btn btn-primary" id="book-room" style="color: #fff">Đặt Phòng Ngay</a>
+                                </div>
+                                @endif
+
+                                @endif
+
                             <div class="utility">
                                 <h3>Thông tin</h3>
                                 <div class="content-info-real">
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
                                             <p class="list-info">
-                                                <i class="fa fa-angle-right"></i>
+                                                <i class="fas fa-edit"></i>
                                                 <strong>Giá: </strong>
                                                 <span class="color">
-											     {{$dangtin->Giaphong}}
+											   {{number_format($dangtin->Giaphong)}}vnđ
 												</span>
                                             </p>
                                         </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
                                             <p class="list-info">
-                                                <i class="fa fa-angle-right"></i>
+                                                <i class="fas fa-map"></i>
                                                 <strong>Diện tích: </strong>
                                                 <span class="color">
                                                     {{$dangtin->Dientich}}m<sup>2</sup>
 												</span>
                                             </p>
                                         </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8">
                                             <p class="list-info">
-                                                <i class="fa fa-angle-right"></i>
+                                                <i class="fas fa-address-card"></i>
                                                 <strong>Khu vực: </strong>
-                                                <a href="https://phongtrodn.com/thanh-khe/thac-gian">
 												<span class="color">
-													{{$dangtin->phuong->TenPhuong}}												</span>
-                                                </a>
+													{{$dangtin->phuong->TenPhuong}}	- {{$dangtin->quan->Tenquan}}
+                                                </span>
                                             </p>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                             <p class="list-info list-address">
-                                                <i class="fa fa-angle-right"></i>
+                                                <i class="fas fa-address-book"></i>
                                                 <strong>Địa chỉ: </strong>
                                                 <span class="color">
                                                     {{$dangtin->Diachi}}
@@ -98,9 +101,30 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
                                             <p class="list-info">
-                                                <i class="fa fa-angle-right"></i>
+                                                <i class="fas fa-book"></i>
                                                 <strong>Mã tin đăng: </strong>
                                                 <span class="color"><strong style="color: #e00">{{$dangtin->id}}</strong></span>
+                                            </p>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                            <p class="list-info">
+                                                <i class="fas fa-home"></i>
+                                                <strong>Tổng số lượng phòng cho thuê:</strong>
+                                                <span class="color"><strong style="color: #e00">{{$tongsoluong}}</strong></span>
+                                            </p>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                                            <p class="list-info">
+                                                <i class="fas fa-pencil"></i>
+                                                <strong>Đã duyệt: </strong>
+                                                <span class="color"><strong style="color: #e00">{{$soluongdaduyet}}/{{$soluongdangky}}</strong></span>
+                                            </p>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                                            <p class="list-info">
+                                                <i class="fas fa-comment"></i>
+                                                <strong>Số phòng đã cho thuê:</strong>
+                                                <span class="color"><strong style="color: #e00">{{$soluongdaduyet}}</strong></span>
                                             </p>
                                         </div>
                                     </div>
@@ -113,7 +137,7 @@
                                     <p style="color: #000205">Nội dung mô tả</p>
                                     <p style="color: #000205">{{$dangtin->Mota}}</p>
                                     <p style="color: #000205">{{$dangtin->tiennghi}}</p>
-                                    <p style="color: #000205">Có đồng hồ điện và nước riêng. Giá cả phải chăng, phù hợp với mọi gia đình, mọi nhu cầu.</p>
+
                                 </article>
                             </div>
                             <div class="utility">
@@ -122,7 +146,7 @@
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                             <p class="list-info">
-                                                <i class="fa fa-angle-right"></i>
+                                                <i class="fas fa-user"></i>
                                                 <strong>Họ và tên: </strong>
                                                 <span class="color">
 												  {{$dangtin->user->name}}												</span>
@@ -130,16 +154,87 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                             <p class="list-info">
-                                                <i class="fa fa-angle-right"></i>
+                                                <i class="fas fa-phone"></i>
                                                 <strong>Điện thoại: </strong>
                                                 <span class="color">
-													{{$dangtin->Sdt}}										</span>
+													{{$dangtin->Sdt}}</span>
                                             </p>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="clear"></div>
+                             @if(\Illuminate\Support\Facades\Auth::user())
+                             @if($dangtin->user_id == auth()->user()->id)
+                                <h3>Danh sách đặt phòng</h3>
+                                @foreach($datphong as $data)
+                                    <div class="content-info-real">
+                                        <div class="row">
+                                            <div class="row" style="margin-bottom: 20px;">
+                                                <div class="col-lg-12 margin-tb">
+                                                    <div id="notify_dangtin"></div>
+                                                    <div class="pull-right" style="margin-top: 20px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                <p class="list-info">
+                                                    <i class="fas fa-user"></i>
+                                                    <strong>Họ và tên: </strong>
+                                                    <span class="color">
+                                                      {{ $data->user->name}}</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                <p class="list-info">
+                                                    <i class="fas fa-phone"></i>
+                                                    <strong>Điện thoại: </strong>
+                                                    <span class="color">
+                                                        {{ $data->user->sdt }}</span>
+                                                </p>
+                                        </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                <p class="list-info">
+                                                    <i class="fas fa-times-circle"></i>
+                                                    <strong>Ngày đặt: </strong>
+                                                    <span class="color">
+                                                       {{date('d/m/Y H:i', strtotime($data->created_at))}}</span>
+                                                </p>
+                                            </div>
+
+                                            @if($data->status == 0)
+                                                    <div class="col-md-3">
+                                                     <button class="btn btn-primary"><a style="color: white;" href="{{route('duyetdatphong', $data->id)}}">Duyệt</a></button>
+                                                    </div>
+                                                @if($dangtin->soluongphongcontrong == 0)
+                                                    <form action="{{route('guimailthongbao')}}" method="post" role="form">
+                                                        @csrf
+                                                        <div class="form-group">
+                                                            <input type="hidden" class="form-control" name="email" value="{{$data->user->email}}" >
+                                                            @error('email') <small class="help-block">{{$message}}</small> @enderror
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="hidden" class="form-control" name="id_tin" value="{{ $dangtin->id }}" >
+                                                            <!-- @error('email') <small class="help-block">{{$message}}</small> @enderror -->
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">Thông báo hết phòng</button>
+                                                    </form>
+                                                @endif
+                                                @else
+                                                    <div class="col-md-3">
+                                                    <a>Đã duyệt</a>
+                                                     <a style="color: red;margin-left:20px" href="{{route('xoadanhsach', $data->id)}}"><i class="fas fa-trash"></i> </a>
+                                                    </div>
+                                            @endif
+
+
+                                        </div>
+                                    </div>
+                                @endforeach
+                                    @else
+                                <div class="clear"></div>
+                                @endif
+                                @endif
                             </div>
                             <div class="content-text">
                                 <div class="cmt">
@@ -148,31 +243,6 @@
                             </div>
                             <hr>
                             <div class="rel-hotel">
-                                <h3>Tin liên quan</h3>
-                                <div class="list-reals">
-                                    <div class="detail-list" style="background: #fff;">
-                                        <a href="https://phongtrodn.com/cho-thue-can-ho-k169-phan-thanh.html">
-                                            <img src="https://phongtrodn.com/wp-content/uploads/2022/03/phong-1-180x130.jpg" data-src="https://phongtrodn.com/wp-content/uploads/2022/03/phong-1-180x130.jpg" alt="Cho thuê căn hộ, K169 Phan Thanh">
-                                        </a>
-                                        <div class="info-real">
-                                            <h4><a href="https://phongtrodn.com/cho-thue-can-ho-k169-phan-thanh.html">{{$dangtin->Tieude}}</a></h4>
-                                            <p class="info-text-reals">🎋 Cho thuê căn hộ, ở được 3-4 người, K169 Phan Thanh, trung tâm TP, gần Đại Học Duy Tân _ Cơ sở Nguyễn Văn Linh 🎋 Có máy...</p>
-                                            <div class="row">
-                                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-                                                    <p style="color: #0a0e14"><i class="fa fa-usd"></i> Giá: <strong>
-                                                            3 Triệu 500K ₫																											</strong></p>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-                                                    <p style="color: #0a0e14"><i class="fa fa-map-o"></i> Diện tích: <strong>30m<sup>2</sup></strong></p>
-                                                </div>
-                                            </div>
-                                            <p><i class="fa fa-map-marker"></i><span class="text-center" style="color: #0a0e14"> Khu vực: <strong>K169 Phan Thanh</strong></span></p>
-                                            <p><span class="date-right">Ngày đăng:<strong>27-02-2000</strong></span></p>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
 
                             </div>
                         </div>
@@ -184,13 +254,13 @@
                             </p>
                             <p>Thời gian đăng:<span>{{$dangtin->created_at}}</span></p>
                             <p>Sdt:<span>{{$dangtin->Sdt}}</span></p>
-                            <p style="color: red">Người đăng không thể đặt phòng</p>
+                            <p style="color: red">Người đăng có thể chỉnh sửa bài viết</p>
                         </div>
-                        <div class="text-center" style="margin-top: 40px">
+                        <div class="text-center" style="margin-top: 40px;">
                             @if(\Illuminate\Support\Facades\Auth::user())
-                                <div style="margin-left: 80px" id="rateYo"></div>
+                                <div style="margin-left: 40px" id="rateYo"></div>
                             @else
-                                <div style="margin-left: 80px" id="rateYo1"></div>
+                                <div style="margin-left: 40px" id="rateYo1"></div>
                             @endif
                             <form action="{{route('rating')}}" method="post" class="form-inline" id="formRating">
                                 @csrf
@@ -203,42 +273,84 @@
                             </form>
 
                         </div>
+                        <div class="text-center borderexam1 mt-5">
+                            <ul class="list-inline" title="Average Rating">
+                                <li title="danhgiasao" class="rating" style="cursor: pointer;color:#cccc77;font-size:30px">
+                                    {{$grate}}&#9733
 
-
-                        <div class="text-left" style="margin-top: 30px">
-                            @if(\Illuminate\Support\Facades\Auth::user())
-                                <div class="text-center" style="margin-right: 40px ">
-                                    <button type="submit"  class="btn btn-primary">Đặt phòng</button>
-                                </div>
-                            @else
-                                <div class="text-center borderexam1">
-                                    <span>Đăng nhập để đặt phòng</span>
-                                </div>
-                            @endif
+                                </li>
+                            </ul>
+                            <p style="color: red"><span>{{$grate_count}}</span> lượt bình luận</p>
                         </div>
-                        <ul class="list-group" style="margin-top: 20px">
+                        @if(\Illuminate\Support\Facades\Auth::user())
+                        <div class="text-center borderexam1 mt-5">
+                            <ul class="list-inline" title="Average Rating">
+                                <a href="/like/{{$dangtin->id}}"><i class="fas fa-heart"></i>
+                                </a>
+                            </ul>
+                            <p style="color: deepskyblue"><span style="margin-right: 10px">{{$likes}}</span>Lượt Yêu Thích</p>
+                        </div>
+                        @endif
+
+                        @if(\Illuminate\Support\Facades\Auth::user())
+                        @if($dangtin->user_id == auth()->user()->id )
+                            <a href="{{route('capnhat.dangtin',$dangtin->id)}}">
+                                <button class="btn-primary mt-5 ml-lg-5">Cập nhật</button>
+                            </a>
+                        @endif
+                        @endif
+
+                        <ul class="list-group mt-5">
                             <li class="list-group-item active" aria-current="true">Danh sách các loại phòng</li>
                             @foreach($loaiphong as $data)
-                            <li class="list-group-item"><a href="#">{{$data->Tenloaiphong}}</a></li>
+                            <li class="list-group-item"><a href="{{route('trangchu.trochothue',$data->id)}}">{{$data->Tenloaiphong}}</a></li>
+                            @endforeach
+                        </ul>
+                        <ul class="list-group mt-5">
+                            <li class="list-group-item active" aria-current="true">Phòng Trọ</li>
+                            @foreach($loaiquan as $data)
+                                <li class="list-group-item"><a href="{{route('trangchu.phongtro',$data->id)}}">{{$data->Tenquan}}</a></li>
                             @endforeach
                         </ul>
 
                     </div>
                 @include('comment.comment')
+                    <div class="rel-hotel">
+                        <h3>Tin liên quan</h3>
+                        <div class="list-reals">
+                            @foreach($tin_lienquan as $data)
+                                <div class="card shadow-0 border rounded-3 mb-6">
+                                    <div class="card-body">
+                            <div class="detail-list" style="background: #fff;">
+                                <a href="{{route('trangchitiet',$dangtin->id)}}">
+                                    <img src="/upload/dangtin/{{$data->Hinhanh}}" width="120" height="100">
+                                </a>
+                                <div class="info-real">
+                                    <h4 style="font-weight: bold"><a href="">{{$data->Tieude}}</a></h4>
+                                    <p style="font-weight: bold;color: #0a0e14" class="info-text-reals" style="size: 20px;color: #0a0e14;font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"">{{$data->Mota}}</p>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                                            <p style="color: #1D00AF"><i class="fa fa-usd" style="color: red"></i> Giá: <strong>
+                                                    {{number_format($data->Giaphong)}} vnđ																									</strong></p>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                                            <p style="color: #022c02;"><i class="fas fa-map"></i> Diện tích: <strong>24m<sup>2</sup></strong></p>
+                                        </div>
+                                    </div>
+                                    <p style="color: #1D00AF;font-weight:18px"><i class="fas fa-map-marker"></i><span> Khu vực: <strong>{{$dangtin->Diachi}}</strong></span><span style="margin-left: 100px;color:#022c02;font-weight:bold">
+											{{date('d/m/Y', strtotime($data->created_at))}}								</span></p>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                                    </div>
+                            </div>
+                            @endforeach
+
+                        </div>
+                    </div>
+                    </div>
         </div>
         </div>
 @endsection
-@section('js')
 
-   <script>
-     $(document).on('click','#btn-reply',function (ev) {
-         ev.preventDefault();
-         var id = $(this).data('id');
-         alert(id);
-
-     })
-
-   </script>
-@endsection
-@section('css')
-@endsection

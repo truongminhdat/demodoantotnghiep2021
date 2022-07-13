@@ -1,7 +1,6 @@
 @extends('admin.main')
 @section( 'content')
-    <html>
-    <body>
+
 
     <div class="container">
 
@@ -28,11 +27,11 @@
                         <button class="btn btn-success" type="submit">Lưu</button>
 
 
+                    </div>
                 </form>
 
             </div>
         </div>
     </div>
-    </body>
-    </html>
+
 @endsection

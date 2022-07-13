@@ -50,4 +50,10 @@ ul.imageGallery.lightSlider.lSSlide li img {
     color: #0628c4;
     margin-right: 2px;
 }
+.wrap-btn-book-room {
+    margin: 50px auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 

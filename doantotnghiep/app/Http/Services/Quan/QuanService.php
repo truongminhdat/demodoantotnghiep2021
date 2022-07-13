@@ -9,10 +9,10 @@ class QuanService{
       try {
           return Quan::create([
               'Tenquan'=> (string) $request->input('Tenquan'),
-              Session::flash('success','Them thanh cong'),
+              Session::flash('success','Thêm quận thành công'),
           ]);
       }catch (\Exception $err){
-          Session::flash('error','Them khong thanh cong');
+          Session::flash('error','Thêm không thành công');
           return false;
 
       }

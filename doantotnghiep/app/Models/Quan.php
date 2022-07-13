@@ -15,4 +15,8 @@ class Quan extends Model
     public function phuong(){
         return $this->hasMany(Phuong::class);
     }
+
+    public function dangTin() {
+        return $this->hasMany(dangtin::class);
+    }
 }

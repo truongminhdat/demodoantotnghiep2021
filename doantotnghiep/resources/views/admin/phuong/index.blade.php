@@ -3,9 +3,6 @@
     <div class="container">
         <div class="row" style="margin-bottom: 20px;">
             <div class="col-lg-12 margin-tb">
-                <div class="pull-left">
-                    <h3>Quận</h3>
-                </div>
                 <div class="pull-right" style="margin-top: 20px;">
                     <a class="btn btn-success" href="{{route('admin.phuong.create')}}">Thêm mới
                     </a>
@@ -61,24 +58,11 @@
             @endforeach
         </table>
 
-{{--        <nav aria-label="Page navigation ">--}}
-{{--            <nav aria-label="Page navigation example">--}}
-
-{{--                {!! $phuong->links()!!}--}}
-{{--                </li>--}}
-{{--                </ul>--}}
-
-{{--            </nav></nav>--}}
 
 
     </div>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <li class="page-item">
-                {{$phuong->links()}}
+    <div class="footer">
+        {{$phuong->links()}}
+    </div>
 
-            </li>
-
-        </ul>
-    </nav>
 @endsection

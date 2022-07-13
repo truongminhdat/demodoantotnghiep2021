@@ -7,7 +7,7 @@
                     <h3>Danh sách các loại phòng</h3>
                 </div>
                 <div class="pull-right" style="margin-top: 20px;">
-                    <a class="btn btn-success" href="#">Thêm mới
+                    <a class="btn btn-success" href="{{route('admin.loaiphong.create')}}">Thêm mới
                     </a>
                 </div>
             </div>
@@ -38,18 +38,18 @@
 
         <table class="table table-bordered">
             <tr>
-                <th>Tên quận</th>
+                <th>Tên Loại Phòng</th>
                 <th width="280px">Hành động</th>
             </tr>
             @foreach ($loaiphong as $data)
                 <tr id="sid{{$data->id}}">
                     <td>{{ $data->Tenloaiphong }}</td>
                     <td>
-                        <a class="btn btn-edit" href="#">
+                        <a class="btn btn-primary" href="{{route('admin.loaiphong.edit',$data->id)}}">
                             <i class="fas fa-edit"></i>
                         </a>
                         @csrf
-                        <a href="javascript:void(0)" onclick="deleteLoaiphong({{$data->id}})" class="btn btn-delete">
+                        <a onclick="alert('Bạn có muốn xóa không ?')" href="{{route('admin.loaiphong.destroy',$data->id)}}" class="btn btn-danger">
                             <i class="fas fa-trash"></i>
                         </a>
                         </form>

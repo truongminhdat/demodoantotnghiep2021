@@ -13,17 +13,23 @@
 
                     <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
                         <li><a href="{{route('trangchu')}}" class="nav-link">Trang chủ</a></li>
-                        <li><a href="#services-section" class="nav-link">Trọ cho thuê</a></li>
-                        <li><a href="#services-section" class="nav-link">Ở ghép</a></li>
-                        <li><a href="#services-section" class="nav-link">Nhà nguyên căn</a></li>
-                        <li><a href="#services-section" class="nav-link">Chung cư</a></li>
+                        <li class="has-children"><a href="{{route('trangchu')}}" class="nav-link">Loại Phòng</a>
+                            <ul class="dropdown arrow-top">
+                                @foreach($loaiphong as $data)
+                                <li><a href="{{route('trangchu.trochothue',$data->id)}}" class="nav-link">{{$data->Tenloaiphong}}</a></li>
+                                @endforeach
+
+                            </ul>
+                        </li>
                         @if(Auth::user())
+                       <li><a href="{{route('dangtin')}}" class="nav-link">Đăng tin</a></li>
                         <li class="has-children">
-                            <a href="#about-section" class="nav-link"><i class="icon-user"></i>{{Auth::user()->name}}</a>
+                            <a href="{{route('nguoidung')}}" class="nav-link"><i class="icon-user"></i>{{Auth::user()->name}}</a>
                             <ul class="dropdown arrow-top">
                                 <li><a href="{{route('nguoidung')}}" class="nav-link">Thông tin người dùng</a></li>
+                                <li><a href="{{route('dangtin.baidangcuatoi')}}" class="nav-link">Bài đăng của tôi</a></li>
+                                <li><a href="{{route('danhSachPhongDat')}}" class="nav-link">Danh sách phòng đặt</a></li>
                                 <li><a href="{{route('logout')}}" class="nav-link">Đăng xuất</a></li>
-                                <li><a href="{{route('dangtin')}}" class="nav-link">Đăng tin</a></li>
                             </ul>
                         </li>
                         @else

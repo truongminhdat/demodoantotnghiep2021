@@ -41,13 +41,70 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function setPasswordAttribute($password){
+
+    public function setPasswordAttribute($password)
+    {
         $this->attributes['password'] = Hash::make($password);
     }
-  public function dangtin(){
-       return $this->hasMany(Dangtin::class);
-  }
-  public function danhgia(){
+
+    public function dangtin()
+    {
+        return $this->hasMany(Dangtin::class);
+    }
+
+    public function danhgia()
+    {
         return $this->belongsTo(Danhgia::class);
-  }
-}
+    }
+
+    public function permissions()
+    {
+        return ['admin.quan', 'admin.phuong', 'admin.dangtin'];
+    }
+
+    public function hasPermission($route)
+    {
+        $routes = $this->routes();
+        return in_array($route, $routes) ? true : false;
+
+    }
+
+    public function routes()
+    {
+        $data = [];
+        foreach ($this->getRoles as $role) {
+            $permission = json_decode($role->permissions);
+            foreach ($permission as $per) {
+                if (!in_array($per, $data)) {
+                    array_push($data, $per);
+                }
+            }
+        }
+        return $data;
+    }
+
+    public function getRoles()
+    {
+        return $this->belongsToMany(Roles::class, 'user_roles', 'user_id', 'role_id');
+    }
+
+    public function datPhong()
+    {
+      return $this->hasMany(Datphong::class);
+    }
+    public function scopeSearch($query){
+        if (request()->key){
+            $key = request()->key;
+           $query->where('name','LIKE','%'.$key.'%');
+        }
+        return $query;
+
+    }
+    public function scopeActive($query){
+        if (request()->key){
+            $key = request()->key;
+            $query->where('status',1);
+        }
+        return $query;
+    }
+ }

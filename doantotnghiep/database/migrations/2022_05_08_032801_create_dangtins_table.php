@@ -17,14 +17,13 @@ return new class extends Migration
             $table->increments('id');
             $table->string('Tieude');
             $table->String('Diachi');
-            $table->integer('Giaphong');
+            $table->string('Giaphong');
             $table->string('Dientich');
             $table->string('Sdt');
             $table->string('Mota');
             $table->string('Hinhanh');
             $table->string('tiennghi');
             $table->string('soluongphong');
-            $table->string('soluongphongcontrong');
             $table->integer('loaiphong_id')->unsigned();
             $table->integer('phuong_id')->unsigned();
             $table->integer('user_id')->unsigned();

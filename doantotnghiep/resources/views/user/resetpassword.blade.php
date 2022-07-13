@@ -1,5 +1,5 @@
 @section('title')
- Đổi mật khẩu
+    Đổi mật khẩu
 @endsection
 @extends('welcome')
 @section('content')
@@ -28,7 +28,7 @@
                             @endforeach
                         @endif
                         <form class="form-horizontal" method="POST" action="{{ route('updatepassword') }}">
-                           @csrf
+                            @csrf
 
                             <div class="form-group{{ $errors->has('current-password') ? ' has-error' : '' }}">
                                 <label for="new-password" class="col-md-4 control-label">Mật khẩu hiện tại</label>
@@ -69,7 +69,7 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
-                                       Thay đổi Password
+                                        Thay đổi Password
                                     </button>
                                 </div>
                             </div>

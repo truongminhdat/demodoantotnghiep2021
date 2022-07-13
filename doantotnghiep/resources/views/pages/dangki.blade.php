@@ -99,3 +99,11 @@
         </div>
     </div>
 @endsection
+@section('js')
+    <script>
+        $('.date').datetimepicker({
+            format: 'DD-MM-YYYY HH:mm:ss'
+        });
+    </script>
+@endsection
+

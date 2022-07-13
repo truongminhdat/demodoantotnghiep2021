@@ -30,72 +30,50 @@
             </span>
 
         @endif
+        {{--        <form action="" class="form-inline">--}}
+        {{--            <div class="form-group">--}}
+        {{--                <input class="form-control" name="key" placeholder="Tìm kiếm.."/>--}}
+        {{--            </div>--}}
+        {{--            <button type="submit" class="btn btn-primary">--}}
+        {{--                <i class="fas fa-search"></i>--}}
+        {{--            </button>--}}
+        {{--        </form>--}}
 
-
-        <table class="table table-bordered">
+      <label class="">Danh sách bình luận</label>
+        <table class="table table-bordered mt-5">
             <tr>
-                <th>Duyệt</th>
-                <th>Nội dung</th>
                 <th>Người bình luận</th>
-                <th>Tin</th>
-            </tr>
-            @foreach($binhluan as $data)
-                <tr>
-                    <td>
-                        @if($data->status == 1 )
-                            <input type="button" data-status="0" id="{{$data->id}}" class="btn btn-primary duyet_btn" value="Mở bình luận">
-                        @else
-                            <input type="button" data-status="1" id="{{$data->id}}" class="btn btn-danger duyet_btn" value="Khóa bình luận">
-                        @endif
-                    </td>
-                    <td>{{$data->noidung}}</td>
-                    <td>{{$data->user->name}}</td>
-                    <td>{{$data->dangtin->Tieude}}</td>
+                <th>Nội dung bình luận</th>
+                <th>Tiêu đề</th>
+                <th>Thời gian bình luận</th>
+                <th>Hành động</th>
 
-                </tr>
+            </tr>
+            @foreach ($comment as $data)
+                <tr>
+                    <td>{{$data->dangtin->user->name}}</td>
+                    <td>{{$data->noidung}}</td>
+                    <td>{{$data->dangtin->Tieude}}</td>
+                    <td>{{date('d/m/Y H:i', strtotime($data->created_at))}}</td>
+                    <td>
+                        @csrf
+                        <a onclick="alert('Bạn có chắc muốn xóa không?')" href="{{route('admin.xoabinhluan',$data->id)}}" class="btn btn-danger">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+
+
+
             @endforeach
         </table>
 
         <nav aria-label="Page navigation ">
             <nav aria-label="Page navigation example">
-                {!! $binhluan->links()!!}
+                {{ $comment->appends(request()->all())->links()}}
                 </li>
                 </ul>
 
             </nav></nav>
     </div>
 @endsection
-@section('js')
-    <script type="text/javascript">
-        $('.duyet_btn').click(function (){
-            var status = $(this).data('status');
-            var id = $(this).attr('id');
-            if(status == 0){
-                var alert = 'Duyệt không thành công';
-            }
-            else {
-                var alert = 'Duyệt thành công'
-            }
 
-            $.ajax({
-                url:"{{url('admin/duyetbaidang')}}",
-                method:"POST",
-                headers:{
-                    'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-                },
-
-                data:{status:status,id:id},
-                success:function(data) {
-                    $('#notify_dangtin').html(data);
-                    $('#notify_dangtin').html('<span class="text text-alert">'+alert+'</span>');
-                }
-
-
-
-
-
-            })
-        })
-
-    </script>
-@endsection
